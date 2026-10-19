@@ -1,14 +1,14 @@
 <p align="center">
-  <img alt="ai-videos" src="https://capsule-render.vercel.app/api?type=waving&color=0:fe428e,100:7b2ff7&height=200&section=header&text=ai-videos&fontColor=ffffff&fontSize=60&fontAlignY=38&desc=Videos%20Manim%20y%20Remotion%20que%20explican%20modelos%20de%20IA&descAlignY=58&descSize=18" />
+  <img alt="ai-videos" src="https://capsule-render.vercel.app/api?type=waving&color=0:6a98f0,100:4961dc&height=200&section=header&text=ai-videos&fontColor=ffffff&fontSize=60&fontAlignY=38&desc=Videos%20Manim%20y%20Remotion%20que%20explican%20modelos%20de%20IA&descAlignY=58&descSize=18" />
 </p>
 
 <p align="center">
-  <a href="https://www.manim.community/"><img alt="Manim Community" src="https://img.shields.io/badge/Manim%20Community-0.22-fe428e?style=for-the-badge&logo=python&logoColor=white" /></a>
-  <img alt="Python" src="https://img.shields.io/badge/Python-3.11-7b2ff7?style=for-the-badge&logo=python&logoColor=white" />
-  <img alt="LaTeX" src="https://img.shields.io/badge/LaTeX-MathTex-141321?style=for-the-badge&logo=latex&logoColor=white" />
-  <a href="https://www.remotion.dev/"><img alt="Remotion" src="https://img.shields.io/badge/Remotion-4.0-7b2ff7?style=for-the-badge&logo=react&logoColor=white" /></a>
-  <img alt="Idiomas" src="https://img.shields.io/badge/Videos-EN%20%7C%20ES-fe428e?style=for-the-badge&logo=youtube&logoColor=white" />
-  <a href="LICENSE"><img alt="Licencia" src="https://img.shields.io/badge/Licencia-MIT-7b2ff7?style=for-the-badge" /></a>
+  <a href="https://www.manim.community/"><img alt="Manim Community" src="https://img.shields.io/badge/Manim%20Community-0.22-6d83f2?style=for-the-badge&logo=python&logoColor=white" /></a>
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.11-4961dc?style=for-the-badge&logo=python&logoColor=white" />
+  <img alt="LaTeX" src="https://img.shields.io/badge/LaTeX-MathTex-191919?style=for-the-badge&logo=latex&logoColor=white" />
+  <a href="https://www.remotion.dev/"><img alt="Remotion" src="https://img.shields.io/badge/Remotion-4.0-4961dc?style=for-the-badge&logo=react&logoColor=white" /></a>
+  <img alt="Idiomas" src="https://img.shields.io/badge/Videos-EN%20%7C%20ES-6d83f2?style=for-the-badge&logo=youtube&logoColor=white" />
+  <a href="LICENSE"><img alt="Licencia" src="https://img.shields.io/badge/Licencia-MIT-4961dc?style=for-the-badge" /></a>
 </p>
 
 <p align="center"><a href="README.md">English</a> · <b>Español</b></p>
@@ -21,7 +21,7 @@ Videos explicativos sobre modelos de IA, hechos con [Manim Community](https://ww
 |---|---|---|---|---|---|
 | JEPA 2 | Manim | `scenes/jepa2/jepa2.py` | `JEPA2OverviewEN`, `JEPA2OverviewES` | 62 s (EN), 65 s (ES) | Predicción latente enmascarada (V-JEPA 2), planificación con CEM (V-JEPA 2-AC) |
 | VLA | Manim | `scenes/vla/vla.py` | `VLAOverviewEN`, `VLAOverviewES` | 56 s (EN), 61 s (ES) | Entradas y tokens estilo π0, action expert con flow matching, ejecución del chunk |
-| Perceptrón | Manim | `scenes/perceptron/perceptron.py` | `PerceptronOverviewEN`, `PerceptronOverviewES` | 107 s (EN), 114 s (ES) | Pesos como diales, curva y cuenco del error, XOR con dos neuronas ocultas escalón, paisajes con escalón y sigmoide, escala a transformers (redibuja `legacy/2025/perceptron`) |
+| Perceptrón | Manim | `scenes/perceptron/perceptron.py` | `PerceptronOverviewEN`, `PerceptronOverviewES` | 120 s (ES) | Pesos como diales; los diales recorren w0 y w1 mientras aparece el cuenco del error; descenso de gradiente en w0, w1 y b; XOR con dos neuronas ocultas escalón; paisajes con escalón y sigmoide con trayectoria SGD; zoom out a 12 bloques transformer (redibuja los cuatro scripts de `legacy/2025/perceptron`) |
 | Perceptrón | Remotion | `remotion/src/perceptron/Perceptron.tsx` | `PerceptronEN`, `PerceptronES` | 86 s (EN), 86 s (ES) | Neurona de Rosenblatt, frontera de decisión, regla de aprendizaje con diales, paisaje del error, límite XOR |
 
 <p align="center">
@@ -42,6 +42,7 @@ Videos explicativos sobre modelos de IA, hechos con [Manim Community](https://ww
 | $\mathcal{L} = \lVert v_\theta(A^\tau_t, o_t) - (A_t - \epsilon) \rVert^2$ | VLA, pérdida de flow matching |
 | $A^{\tau+\delta}_t = A^\tau_t + \delta\, v_\theta(A^\tau_t, o_t)$ | VLA, paso de integración de Euler |
 | $w_i \leftarrow w_i + \eta\,(y - \hat{y})\,x_i$ | Perceptrón, regla de aprendizaje |
+| $E(w_0, w_1, b) = \sum_{i=1}^{4} (y_i - \hat{y}_i)^2$ | Perceptrón, paisaje del error |
 
 ## Guion
 
@@ -113,7 +114,8 @@ cd ai-videos
 python -m venv .venv
 .venv\Scripts\activate              # Windows
 source .venv/bin/activate           # macOS / Linux
-pip install -r requirements.txt     # manim (Community), gráficos, notebooks
+pip install -r requirements.txt     # manim (Community), gráficos, notebooks, nbstripout
+nbstripout --install               # quita las salidas de los notebooks al hacer commit (en disco se conservan)
 python scripts/fetch_fonts.py      # Plus Jakarta Sans para las escenas de Manim
 cd remotion && npm i               # proyecto Remotion (Node.js 20.19+)
 ```
@@ -239,13 +241,7 @@ python legacy/tools/render_legacy.py legacy/2025/perceptron/p45_51.py P45_48v2 -
 | `archive/`, `old/`, `old_notebooks/` | Código en desuso, solo en local |
 | `legacy/*/*/data/` | Entradas y salidas locales de los scripts heredados |
 | `runs/`, `raw_data/`, `wandb/` | Corridas de entrenamiento y datasets |
-
-## Ramas
-
-| Rama | Rol |
-|---|---|
-| `dev` | Rama por defecto, desarrollo activo |
-| `master` | Snapshot del fork original; sin mantenimiento |
+| Salidas de los notebooks | Las quita el filtro de git `nbstripout` al hacer commit; los `.ipynb` en disco las conservan |
 
 ## Licencia y origen
 

@@ -19,6 +19,8 @@
 | Fonts | Manim: Plus Jakarta Sans (`python scripts/fetch_fonts.py`, not versioned). Remotion: the same family via `@remotion/google-fonts/PlusJakartaSans`. |
 | Equations | Manim: `MathTex` through `eq()`. Remotion: `<Equation>` (KaTeX) and `$...$` inside `<RichText>`; no Unicode subscripts in text. |
 | Legacy images | Use as inspiration only; redraw natively instead of embedding screenshots. |
+| Notebooks | Outputs are never committed: the `nbstripout` git filter strips them (`nbstripout --install`). |
+| Branches | `dev` (GitHub, single-commit history) is the working branch; `master` exists only locally and tracks `upstream/master`. |
 
 ## Commands
 
