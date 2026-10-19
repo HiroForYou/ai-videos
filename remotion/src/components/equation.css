@@ -1,0 +1,8 @@
+/* KaTeX display mode adds vertical margins meant for documents; layouts here position equations explicitly. */
+.katex-display {
+	margin: 0 !important;
+}
+
+.katex-display > .katex {
+	text-align: left;
+}

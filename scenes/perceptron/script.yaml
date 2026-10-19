@@ -1,0 +1,161 @@
+# Script (guion) for scenes/perceptron/perceptron.py
+# Each section maps to board.start(self, id) in the scene.
+# narration: voice-over text per language. text: strings shown on screen.
+# Readable versions: script.en.md, script.es.md (python scripts/export_scripts.py)
+# Visual references: legacy/2025/perceptron (p45_51, p45_51_book_graphics, p66_67, p69_72), redrawn here.
+title:
+  en: The Perceptron
+  es: El perceptrón
+languages:
+- en
+- es
+sections:
+- id: intro
+  narration:
+    en: 'In 1958 Frank Rosenblatt built the perceptron: a single artificial neuron that learns from examples. Every
+      modern neural network still uses its core idea.'
+    es: 'En 1958, Frank Rosenblatt construyó el perceptrón: una sola neurona artificial que aprende a partir de
+      ejemplos. Toda red neuronal moderna sigue usando su idea central.'
+  text:
+    title:
+      en: The Perceptron
+      es: El perceptrón
+    subtitle:
+      en: The first neuron that learns
+      es: La primera neurona que aprende
+    credit:
+      en: Frank Rosenblatt · 1958
+      es: Frank Rosenblatt · 1958
+- id: neuron
+  narration:
+    en: Take four points with two inputs each. The perceptron multiplies each input by a weight, adds a bias and
+      compares the result with the label. For this point the prediction is one, but the label is minus one, so the
+      squared error is four.
+    es: Tomemos cuatro puntos con dos entradas cada uno. El perceptrón multiplica cada entrada por un peso, suma
+      un sesgo y compara el resultado con la etiqueta. Para este punto la predicción es uno, pero la etiqueta es
+      menos uno, así que el error al cuadrado es cuatro.
+  text:
+    section:
+      en: 1 · One neuron, four points
+      es: 1 · Una neurona, cuatro puntos
+    example:
+      en: example
+      es: ejemplo
+- id: dials
+  narration:
+    en: The weights are dials we can turn. Nudging the first weight from minus one to minus zero point nine lowers
+      the error from four to three point six one. Sweeping that dial traces the error as a curve, with its lowest
+      point where the first weight equals one.
+    es: Los pesos son diales que podemos girar. Mover el primer peso de menos uno a menos cero coma nueve baja el
+      error de cuatro a tres coma sesenta y uno. Recorrer ese dial dibuja el error como una curva, con su punto
+      más bajo donde el primer peso vale uno.
+  text:
+    section:
+      en: 2 · Weights are dials
+      es: 2 · Los pesos son diales
+    sweep:
+      en: sweeping the first weight
+      es: recorriendo el primer peso
+    minimum:
+      en: lowest error
+      es: menor error
+- id: landscape
+  narration:
+    en: 'Turning both weight dials across their range traces the error over every point of the plane: a smooth bowl
+      when we add up all four points. Gradient descent then turns all three dials at once, both weights and the
+      bias, walking downhill to the lowest point.'
+    es: 'Girar los dos diales de pesos por todo su rango dibuja el error sobre cada punto del plano: un cuenco suave
+      al sumar los cuatro puntos. Luego el descenso de gradiente gira los tres diales a la vez, los dos pesos y
+      el sesgo, bajando hasta el punto más bajo.'
+  text:
+    section:
+      en: 3 · The error landscape
+      es: 3 · El paisaje del error
+    surface:
+      en: error over two weights, all four points
+      es: error sobre dos pesos, los cuatro puntos
+    descent:
+      en: gradient descent on w0, w1 and b
+      es: descenso de gradiente en w0, w1 y b
+    sweep_grid:
+      en: sweeping w0 and w1 over a grid
+      es: recorriendo w0 y w1 en una cuadrícula
+- id: xor
+  narration:
+    en: 'Now change the labels to XOR. No single line separates the plus points from the minus points. Two hidden
+      neurons solve it: each one draws a line, and the output keeps the band between them.'
+    es: 'Ahora cambiemos las etiquetas a XOR. Ninguna recta separa los puntos más de los puntos menos. Dos neuronas
+      ocultas lo resuelven: cada una traza una recta y la salida conserva la franja entre ambas.'
+  text:
+    section:
+      en: 4 · The XOR problem
+      es: 4 · El problema XOR
+    no_line:
+      en: no single line separates + and −
+      es: ninguna recta separa + y −
+    two_neurons:
+      en: two hidden neurons, two lines
+      es: dos neuronas ocultas, dos rectas
+- id: step_surface
+  narration:
+    en: But with step activations the error landscape is made of flat terraces. The slope is zero almost everywhere,
+      so there is no direction to follow. Smooth activations like the sigmoid turn the terraces into slopes that
+      gradient descent can walk down.
+    es: Pero con activaciones escalón, el paisaje del error está hecho de terrazas planas. La pendiente es cero
+      casi en todas partes, así que no hay una dirección que seguir. Activaciones suaves como la sigmoide convierten
+      las terrazas en pendientes por las que el descenso de gradiente puede bajar.
+  text:
+    section:
+      en: 5 · Why smooth activations
+      es: 5 · Por qué activaciones suaves
+    step:
+      en: step activation
+      es: activación escalón
+    sigmoid:
+      en: sigmoid activation
+      es: activación sigmoide
+    flat:
+      en: slope = 0 almost everywhere
+      es: pendiente = 0 casi en todas partes
+    smooth:
+      en: a slope to follow
+      es: una pendiente que seguir
+    training:
+      en: training with SGD (lr = 3)
+      es: entrenamiento con SGD (lr = 3)
+- id: scale
+  narration:
+    en: 'Smooth activations, many layers and lots of data: stack enough of these neurons, add attention, and you
+      get the transformer blocks inside today''s language models.'
+    es: 'Activaciones suaves, muchas capas y muchos datos: si apilamos suficientes de estas neuronas y añadimos
+      atención, obtenemos los bloques transformer de los modelos de lenguaje actuales.'
+  text:
+    section:
+      en: 6 · From one neuron to transformers
+      es: 6 · De una neurona a los transformers
+    mlp:
+      en: multilayer perceptron
+      es: perceptrón multicapa
+    attention:
+      en: Attention
+      es: Atención
+    block_mlp:
+      en: MLP
+      es: MLP
+    blocks:
+      en: one block, repeated dozens of times
+      es: un bloque, repetido decenas de veces
+- id: summary
+  narration:
+    en: Weighted sums, an error to minimize and a smooth path downhill. That is the legacy of the perceptron.
+    es: Sumas ponderadas, un error que minimizar y un camino suave cuesta abajo. Ese es el legado del perceptrón.
+  text:
+    summary:
+      en:
+      - Weighted sum + bias, compared with a label
+      - Learning = walking downhill on the error
+      - Smooth activations and many layers scale it up
+      es:
+      - Suma ponderada + sesgo, comparada con una etiqueta
+      - Aprender = bajar por el error
+      - Activaciones suaves y muchas capas lo escalan

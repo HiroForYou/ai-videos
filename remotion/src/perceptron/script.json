@@ -1,0 +1,191 @@
+{
+  "title": {
+    "en": "The Perceptron",
+    "es": "El perceptrón"
+  },
+  "languages": [
+    "en",
+    "es"
+  ],
+  "sections": [
+    {
+      "id": "intro",
+      "narration": {
+        "en": "In 1958 Frank Rosenblatt introduced the perceptron, the first artificial neuron that could learn from examples.",
+        "es": "En 1958, Frank Rosenblatt presentó el perceptrón, la primera neurona artificial capaz de aprender a partir de ejemplos."
+      },
+      "text": {
+        "title": {
+          "en": "The Perceptron",
+          "es": "El perceptrón"
+        },
+        "subtitle": {
+          "en": "The first neuron that learns",
+          "es": "La primera neurona que aprende"
+        },
+        "credit": {
+          "en": "Frank Rosenblatt · 1958",
+          "es": "Frank Rosenblatt · 1958"
+        }
+      }
+    },
+    {
+      "id": "neuron",
+      "narration": {
+        "en": "It takes a few inputs, multiplies each one by a weight, adds a bias and passes the sum through a step function. The output is a single decision: plus one or minus one.",
+        "es": "Toma unas pocas entradas, multiplica cada una por un peso, suma un sesgo y pasa el resultado por una función escalón. La salida es una sola decisión: más uno o menos uno."
+      },
+      "text": {
+        "header": {
+          "en": "1 · One neuron",
+          "es": "1 · Una neurona"
+        },
+        "inputs": {
+          "en": "inputs",
+          "es": "entradas"
+        },
+        "sum": {
+          "en": "weighted sum",
+          "es": "suma ponderada"
+        },
+        "step": {
+          "en": "step",
+          "es": "escalón"
+        },
+        "output": {
+          "en": "decision",
+          "es": "decisión"
+        }
+      }
+    },
+    {
+      "id": "boundary",
+      "narration": {
+        "en": "Geometrically, the weights and the bias define a line. Points on one side are classified as plus, points on the other side as minus. Changing the weights moves the line.",
+        "es": "Geométricamente, los pesos y el sesgo definen una recta. Los puntos de un lado se clasifican como más y los del otro lado como menos. Cambiar los pesos mueve la recta."
+      },
+      "text": {
+        "header": {
+          "en": "2 · A line that decides",
+          "es": "2 · Una recta que decide"
+        },
+        "boundary": {
+          "en": "decision boundary",
+          "es": "frontera de decisión"
+        },
+        "positive": {
+          "en": "classified +1",
+          "es": "clasificado +1"
+        },
+        "negative": {
+          "en": "classified −1",
+          "es": "clasificado −1"
+        }
+      }
+    },
+    {
+      "id": "learning",
+      "narration": {
+        "en": "Learning means turning these dials. When the perceptron gets an example wrong, it nudges each weight toward the correct answer, and the line moves. Then it repeats with the next mistake.",
+        "es": "Aprender significa girar estos diales. Cuando el perceptrón se equivoca con un ejemplo, mueve cada peso hacia la respuesta correcta y la recta se desplaza. Luego repite con el siguiente error."
+      },
+      "text": {
+        "header": {
+          "en": "3 · Learning by turning dials",
+          "es": "3 · Aprender girando diales"
+        },
+        "example": {
+          "en": "example $x = (-1, -1)$, label $y = -1$",
+          "es": "ejemplo $x = (-1, -1)$, etiqueta $y = -1$"
+        },
+        "wrong": {
+          "en": "prediction $\\hat{y} = +1$: wrong",
+          "es": "predicción $\\hat{y} = +1$: incorrecta"
+        },
+        "rule": {
+          "en": "perceptron learning rule, $\\eta = 0.25$",
+          "es": "regla de aprendizaje del perceptrón, $\\eta = 0.25$"
+        },
+        "fixed": {
+          "en": "now $\\hat{y} = -1$: correct",
+          "es": "ahora $\\hat{y} = -1$: correcta"
+        },
+        "next": {
+          "en": "repeat with the next mistake until none remain",
+          "es": "repetir con el siguiente error hasta que no quede ninguno"
+        }
+      }
+    },
+    {
+      "id": "landscape",
+      "narration": {
+        "en": "If we measure the squared error of the weighted sum for every value of the weights, we get a landscape. With two weights it becomes a bowl, and the best weights sit at its lowest point.",
+        "es": "Si medimos el error cuadrático de la suma ponderada para cada valor de los pesos, obtenemos un paisaje. Con dos pesos se convierte en un cuenco, y los mejores pesos están en su punto más bajo."
+      },
+      "text": {
+        "header": {
+          "en": "4 · The error landscape",
+          "es": "4 · El paisaje del error"
+        },
+        "curve": {
+          "en": "one weight: $w_0$ (with $w_1 = b = 1$)",
+          "es": "un peso: $w_0$ (con $w_1 = b = 1$)"
+        },
+        "surface": {
+          "en": "two weights: $w_0$ and $w_1$",
+          "es": "dos pesos: $w_0$ y $w_1$"
+        },
+        "minimum": {
+          "en": "lowest error = best weights",
+          "es": "menor error = mejores pesos"
+        }
+      }
+    },
+    {
+      "id": "limits",
+      "narration": {
+        "en": "But a single perceptron can only draw one line. In 1969 Minsky and Papert showed that it cannot solve XOR, where no straight line separates the classes. The answer was to stack neurons in layers.",
+        "es": "Pero un solo perceptrón solo puede trazar una recta. En 1969, Minsky y Papert mostraron que no resuelve XOR, donde ninguna recta separa las clases. La respuesta fue apilar neuronas en capas."
+      },
+      "text": {
+        "header": {
+          "en": "5 · The limit: XOR",
+          "es": "5 · El límite: XOR"
+        },
+        "no_line": {
+          "en": "no single line separates + and −",
+          "es": "ninguna recta separa + y −"
+        },
+        "credit": {
+          "en": "Minsky & Papert, 1969",
+          "es": "Minsky y Papert, 1969"
+        },
+        "fix": {
+          "en": "solution: multilayer networks",
+          "es": "solución: redes multicapa"
+        }
+      }
+    },
+    {
+      "id": "summary",
+      "narration": {
+        "en": "Weighted sum, step, and a rule to fix mistakes: the perceptron is the seed of every modern neural network.",
+        "es": "Suma ponderada, escalón y una regla para corregir errores: el perceptrón es la semilla de toda red neuronal moderna."
+      },
+      "text": {
+        "summary": {
+          "en": [
+            "Weighted sum + step = one decision",
+            "Learning nudges the weights after each mistake",
+            "One line is not enough: stack layers"
+          ],
+          "es": [
+            "Suma ponderada + escalón = una decisión",
+            "Aprender es mover los pesos tras cada error",
+            "Una recta no basta: apilar capas"
+          ]
+        }
+      }
+    }
+  ]
+}

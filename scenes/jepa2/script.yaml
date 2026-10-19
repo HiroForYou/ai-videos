@@ -1,0 +1,100 @@
+# Script (guion) for scenes/jepa2/jepa2.py
+# Each section maps to self.next_section(id) in the scene.
+# narration: voice-over text per language. text: strings shown on screen.
+# Readable versions: script.en.md, script.es.md (python scripts/export_scripts.py)
+title:
+  en: JEPA 2
+  es: JEPA 2
+languages:
+- en
+- es
+sections:
+- id: intro
+  narration:
+    en: 'JEPA 2 is a world model from Meta. Its core idea is simple: instead of predicting pixels, it predicts representations.'
+    es: 'JEPA 2 es un world model de Meta. Su idea central es simple: en lugar de predecir píxeles, predice representaciones.'
+  text:
+    subtitle:
+      en: Predict in representation space, not in pixels
+      es: Predecir en el espacio de representaciones, no en píxeles
+- id: masked_prediction
+  narration:
+    en: V-JEPA 2 is pretrained on more than a million hours of video. A tube of patches is masked across every frame.
+      The context encoder sees only the visible patches, and a predictor estimates the embeddings of the hidden
+      ones. The targets come from an exponential moving average of the encoder, and the loss is an L1 distance between
+      embeddings.
+    es: V-JEPA 2 se pre-entrena con más de un millón de horas de video. Se enmascara un tubo de parches en todos
+      los cuadros. El encoder de contexto solo ve los parches visibles y un predictor estima los embeddings de los
+      ocultos. Los objetivos salen de una media móvil exponencial del encoder y la pérdida es una distancia L1 entre
+      embeddings.
+  text:
+    section1:
+      en: 1 · Video pretraining (V-JEPA 2)
+      es: 1 · Pre-entrenamiento con video (V-JEPA 2)
+    video:
+      en: video
+      es: video
+    mask:
+      en: masked tube
+      es: tubo enmascarado
+    predicted:
+      en: (predicted)
+      es: (predicho)
+    target:
+      en: (target)
+      es: (objetivo)
+    no_pixels:
+      en: 'No pixel reconstruction: the loss compares embeddings'
+      es: 'Sin reconstruir píxeles: la pérdida compara embeddings'
+- id: planning
+  narration:
+    en: V-JEPA 2-AC adds an action-conditioned predictor, trained on less than 62 hours of robot video. To plan,
+      the robot encodes its current observation and a goal image. The cross-entropy method samples action sequences,
+      rolls them out in latent space, keeps the ones that end closest to the goal and refits the distribution. The
+      robot executes the first action and plans again.
+    es: V-JEPA 2-AC agrega un predictor condicionado a acciones, entrenado con menos de 62 horas de video de robots.
+      Para planificar, el robot codifica su observación actual y una imagen meta. El método de entropía cruzada
+      muestrea secuencias de acciones, las simula en el espacio latente, conserva las que terminan más cerca de
+      la meta y reajusta la distribución. El robot ejecuta la primera acción y vuelve a planificar.
+  text:
+    section2:
+      en: 2 · Planning with the world model (V-JEPA 2-AC)
+      es: 2 · Planificación con el world model (V-JEPA 2-AC)
+    latent:
+      en: latent space
+      es: espacio latente
+    cem_title:
+      en: Cross-entropy method
+      es: Método de entropía cruzada
+    cem:
+      en:
+      - sample action sequences
+      - roll out the predictor
+      - keep the k lowest-energy
+      - refit the Gaussian
+      es:
+      - muestrear secuencias de acciones
+      - simular con el predictor
+      - conservar las k de menor energía
+      - reajustar la gaussiana
+    iteration:
+      en: iteration {}
+      es: iteración {}
+    mpc:
+      en: execute the first action, then replan
+      es: ejecutar la primera acción y re-planificar
+- id: summary
+  narration:
+    en: Learn to predict representations from video, then use that predictor as a world model to plan.
+    es: Aprender a predecir representaciones a partir de video y luego usar ese predictor como world model para
+      planificar.
+  text:
+    summary:
+      en:
+      - V-JEPA 2 learns to predict video representations
+      - V-JEPA 2-AC uses that predictor as a world model
+      - Planning searches for actions that move z toward the goal
+      es:
+      - V-JEPA 2 aprende a predecir representaciones de video
+      - V-JEPA 2-AC usa ese predictor como world model
+      - La planificación busca acciones que acerquen z a la meta

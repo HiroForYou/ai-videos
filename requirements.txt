@@ -1,0 +1,19 @@
+# Base dependencies: Manim Community (scenes/) plus plotting and notebooks.
+# Legacy manimgl scenes: legacy/requirements.txt; ML dependencies for the legacy notebooks: legacy/requirements-ml.txt
+# System dependency: LaTeX (MiKTeX or TeX Live) for MathTex. Video encoding uses PyAV, bundled with manim.
+
+manim>=0.19
+numpy
+scipy
+matplotlib
+pillow
+tqdm
+pandas
+opencv-python
+shapely
+imageio
+pyyaml
+
+# Notebooks
+jupyterlab
+ipywidgets

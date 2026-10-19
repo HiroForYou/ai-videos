@@ -1,0 +1,314 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Video production workflow",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": "docs/diagrams/render-pipeline.en.html",
+    "legend": {
+      "mode": "auto",
+      "entries": {
+        "frontend": {
+          "label": "Scene or composition"
+        },
+        "backend": {
+          "label": "Process (Python / CLI)"
+        },
+        "database": {
+          "label": "Files"
+        },
+        "security": {
+          "label": "Configuration"
+        },
+        "messagebus": {
+          "label": "Video encoding"
+        },
+        "external": {
+          "label": "External input or tool"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "prep",
+      "label": "Preparation"
+    },
+    {
+      "id": "scene",
+      "label": "Scene and composition"
+    },
+    {
+      "id": "render",
+      "label": "Render"
+    },
+    {
+      "id": "out",
+      "label": "Output"
+    }
+  ],
+  "phases": [
+    {
+      "id": "ph_research",
+      "label": "Research",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "ph_anim",
+      "label": "Animation and render",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "ph_out",
+      "label": "Output",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "nb",
+    "data",
+    "scene",
+    "manim",
+    "ffmpeg",
+    "mp4",
+    "edit"
+  ],
+  "nodes": [
+    {
+      "id": "nb",
+      "lane": "prep",
+      "col": 0,
+      "type": "backend",
+      "label": "Notebooks",
+      "sublabel": "data, training, plots"
+    },
+    {
+      "id": "data",
+      "lane": "prep",
+      "col": 1,
+      "type": "database",
+      "label": "Data and weights",
+      "sublabel": ".npy .pth (not versioned)"
+    },
+    {
+      "id": "assets",
+      "lane": "scene",
+      "col": 1,
+      "type": "external",
+      "label": "Fonts",
+      "sublabel": "fetch_fonts.py · Google Fonts"
+    },
+    {
+      "id": "scene",
+      "lane": "scene",
+      "col": 2,
+      "type": "frontend",
+      "label": "scenes/<video>/*.py",
+      "sublabel": "Manim: Scene + MathTex"
+    },
+    {
+      "id": "preview",
+      "lane": "scene",
+      "col": 3,
+      "type": "frontend",
+      "label": "Preview",
+      "sublabel": "manim -p · Remotion Studio"
+    },
+    {
+      "id": "config",
+      "lane": "render",
+      "col": 2,
+      "type": "security",
+      "label": "manim.cfg",
+      "sublabel": "output ./videos, cache"
+    },
+    {
+      "id": "manim",
+      "lane": "render",
+      "col": 3,
+      "type": "backend",
+      "label": "render.py -qh",
+      "sublabel": "Manim CE · -ql to -qk"
+    },
+    {
+      "id": "ffmpeg",
+      "lane": "render",
+      "col": 4,
+      "type": "messagebus",
+      "label": "PyAV",
+      "sublabel": "libx264, yuv420p"
+    },
+    {
+      "id": "mp4",
+      "lane": "out",
+      "col": 4,
+      "type": "database",
+      "label": "videos/ · remotion/out/",
+      "sublabel": "1080p MP4, ignored by git"
+    },
+    {
+      "id": "edit",
+      "lane": "out",
+      "col": 5,
+      "type": "external",
+      "label": "Editing",
+      "sublabel": "final cut"
+    },
+    {
+      "id": "latex",
+      "lane": "prep",
+      "col": 2,
+      "type": "external",
+      "label": "LaTeX",
+      "sublabel": "MiKTeX / TeX Live"
+    },
+    {
+      "id": "script",
+      "lane": "prep",
+      "col": 3,
+      "type": "database",
+      "label": "Script and theme",
+      "sublabel": "script.yaml/.json · theme.json"
+    },
+    {
+      "id": "remotion",
+      "lane": "scene",
+      "col": 4,
+      "type": "frontend",
+      "label": "remotion/src/<video>/",
+      "sublabel": "React + KaTeX"
+    },
+    {
+      "id": "rrender",
+      "lane": "render",
+      "col": 5,
+      "type": "backend",
+      "label": "npx remotion render",
+      "sublabel": "Chromium + FFmpeg"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-nb-data",
+      "from": "nb",
+      "to": "data",
+      "label": "exports"
+    },
+    {
+      "id": "e-data-scene",
+      "from": "data",
+      "to": "scene",
+      "label": "loads",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-latex-scene",
+      "from": "latex",
+      "to": "scene",
+      "label": "compiles"
+    },
+    {
+      "id": "e-script-scene",
+      "from": "script",
+      "to": "scene",
+      "label": "text and timing"
+    },
+    {
+      "id": "e-assets-scene",
+      "from": "assets",
+      "to": "scene",
+      "label": "loads"
+    },
+    {
+      "id": "e-scene-preview",
+      "from": "scene",
+      "to": "preview",
+      "label": "iterate",
+      "role": "branch",
+      "variant": "dashed"
+    },
+    {
+      "id": "e-scene-manim",
+      "from": "scene",
+      "to": "manim",
+      "label": "render",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-config-manim",
+      "from": "config",
+      "to": "manim",
+      "label": "configures"
+    },
+    {
+      "id": "e-manim-ffmpeg",
+      "from": "manim",
+      "to": "ffmpeg",
+      "label": "frames",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-ffmpeg-mp4",
+      "from": "ffmpeg",
+      "to": "mp4",
+      "label": "writes",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-mp4-edit",
+      "from": "mp4",
+      "to": "edit",
+      "label": "imports"
+    },
+    {
+      "id": "e-script-remotion",
+      "from": "script",
+      "to": "remotion",
+      "label": "text and timing"
+    },
+    {
+      "id": "e-remotion-preview",
+      "from": "remotion",
+      "to": "preview",
+      "label": "Studio"
+    },
+    {
+      "id": "e-remotion-rrender",
+      "from": "remotion",
+      "to": "rrender",
+      "label": "render",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-rrender-mp4",
+      "from": "rrender",
+      "to": "mp4",
+      "label": "writes",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Engines",
+      "items": [
+        "Manim CE: scenes/, script.yaml",
+        "Remotion: remotion/src/, script.json"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Versioning",
+      "items": [
+        "Code, scripts, configs and theme.json in git",
+        "Videos, weights, data and fonts stay local"
+      ]
+    }
+  ]
+}

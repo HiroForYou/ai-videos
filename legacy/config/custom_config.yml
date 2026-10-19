@@ -1,0 +1,30 @@
+# manimgl config for the legacy scenes (legacy/):
+#   python legacy/tools/render_legacy.py legacy/<year>/<video>/<file>.py <Scene> -w   (adds this file)
+# Original 8K production config (absolute asset paths): legacy/config/welchlabs_original.yml
+directories:
+  mirror_module_path: False
+  base: ""
+  subdirs:
+    output: "videos"
+    raster_images: "assets/raster"
+    vector_images: "assets/vector"
+    downloads: "manim_downloads"
+universal_import_line: "from manimlib import *"
+window:
+  position_string: UR
+  monitor_index: 0
+  full_screen: False
+camera:
+  resolution: (1920, 1080)
+  background_color: '#19435c'
+  fps: 30
+  background_opacity: 1.0
+file_writer:
+  saturation: 1.5
+text:
+  font: "Arial"
+  alignment: "CENTER"
+tex:
+  template: "default"
+embed:
+  autoreload: False

@@ -1,0 +1,12 @@
+"""
+Helper module for the ResNets video (kt colors).
+"""
+KT_PINK='#ED5E78'
+KT_RED='#D73B2F'
+KT_ORANGE='#EB8423'
+KT_YELLOW='#FCC947'
+KT_GREEN='#419C52'
+KT_LT_BLUE='#B2C2E4'
+KT_AQUA='#5BADB6'
+KT_BLUE='#236C94'
+KT_PURPLE='#7E5B76'

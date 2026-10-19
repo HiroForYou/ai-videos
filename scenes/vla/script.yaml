@@ -1,0 +1,105 @@
+# Script (guion) for scenes/vla/vla.py
+# Each section maps to self.next_section(id) in the scene.
+# narration: voice-over text per language. text: strings shown on screen.
+# Readable versions: script.en.md, script.es.md (python scripts/export_scripts.py)
+title:
+  en: VLA
+  es: VLA
+languages:
+- en
+- es
+sections:
+- id: intro
+  narration:
+    en: Vision-language-action models turn camera images and a text instruction into robot motion.
+    es: Los modelos de visión, lenguaje y acción convierten imágenes de cámara y una instrucción de texto en movimientos
+      del robot.
+  text:
+    tagline:
+      en: from pixels and instructions to robot motion
+      es: de píxeles e instrucciones a movimientos del robot
+- id: inputs
+  narration:
+    en: A model like π0 reads three cameras, the instruction and the joint state of the robot. SigLIP turns each
+      image into tokens and the instruction is tokenized. The full sequence goes through the PaliGemma vision-language
+      model, and a smaller action expert attends to all of its tokens.
+    es: Un modelo como π0 lee tres cámaras, la instrucción y el estado de las articulaciones del robot. SigLIP convierte
+      cada imagen en tokens y la instrucción se tokeniza. La secuencia completa pasa por el modelo de visión y lenguaje
+      PaliGemma, y un action expert más pequeño atiende a todos sus tokens.
+  text:
+    section1:
+      en: 1 · Inputs and tokens
+      es: 1 · Entradas y tokens
+    cams:
+      en:
+      - base camera
+      - left wrist
+      - right wrist
+      es:
+      - cámara base
+      - muñeca izq.
+      - muñeca der.
+    sequence:
+      en: token sequence
+      es: secuencia de tokens
+    attends:
+      en: attends to every VLM token
+      es: atiende a todos los tokens del VLM
+- id: flow_matching
+  narration:
+    en: The action expert does not output a single action. It generates a chunk of 50 future actions with flow matching.
+      During training it learns a velocity field that moves noise toward real actions. At inference it integrates
+      that field in ten Euler steps.
+    es: El action expert no produce una sola acción. Genera un chunk de 50 acciones futuras con flow matching. En
+      entrenamiento aprende un campo de velocidades que lleva el ruido hacia acciones reales. En inferencia integra
+      ese campo en diez pasos de Euler.
+  text:
+    section2:
+      en: 2 · Action expert with flow matching
+      es: 2 · Action expert con flow matching
+    context:
+      en: context
+      es: contexto
+    x_axis:
+      en: chunk step
+      es: paso del chunk
+    y_axis:
+      en: action per joint
+      es: acción por articulación
+    train:
+      en: training
+      es: entrenamiento
+    infer:
+      en: 'inference: 10 Euler steps'
+      es: 'inferencia: 10 pasos de Euler'
+    noise:
+      en: noise
+      es: ruido
+    chunk:
+      en: action chunk
+      es: chunk de acciones
+- id: execution
+  narration:
+    en: The robot executes the chunk, observes the scene again and generates the next one.
+    es: El robot ejecuta el chunk, vuelve a observar la escena y genera el siguiente.
+  text:
+    section3:
+      en: 3 · Chunk execution
+      es: 3 · Ejecución del chunk
+    replan:
+      en: Each chunk runs open-loop; then the robot observes and predicts again
+      es: Cada chunk se ejecuta en lazo abierto; luego el robot observa y predice de nuevo
+- id: summary
+  narration:
+    en: Tokens in, an action chunk out, and a new plan at every step.
+    es: Entran tokens, sale un chunk de acciones y hay un plan nuevo en cada paso.
+  text:
+    summary:
+      en:
+      - Vision, language and state enter the VLM as tokens
+      - The action expert generates an action chunk with flow matching
+      - The robot executes the chunk and replans
+      es:
+      - Visión, lenguaje y estado entran al VLM como tokens
+      - El action expert genera un chunk de acciones con flow matching
+      - El robot ejecuta el chunk y vuelve a planificar

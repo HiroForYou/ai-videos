@@ -1,0 +1,14 @@
+{
+  "background": "#191919",
+  "panel": "#232323",
+  "panelStroke": "#303030",
+  "text": "#f8f8f8",
+  "muted": "#b3b3b3",
+  "primary": "#6d83f2",
+  "sky": "#6a98f0",
+  "amber": "#f2c36d",
+  "pink": "#f28fb0",
+  "emerald": "#6fd8b4",
+  "sand": "#c7d0ff",
+  "patchLow": "#2b3352"
+}

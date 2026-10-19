@@ -1,0 +1,42 @@
+# Optional: heavier dependencies used by the per-video hacking notebooks/scripts.
+# Install only what the video you are working on needs, e.g.:
+#   pip install -r legacy/requirements-ml.txt   (from the repo root)
+-r requirements.txt
+
+# Deep learning
+torch
+torchvision
+einops
+jaxtyping
+safetensors
+
+# Hugging Face ecosystem (llama/backprop_2, deepseek, sora, vla, rl)
+transformers
+datasets
+huggingface_hub
+accelerate
+diffusers
+tiktoken
+
+# Interpretability (grokking, mech_interp, subliminal_learning)
+transformer_lens
+circuitsvis
+scikit-learn
+umap-learn
+
+# Diffusion toys (sora)
+smalldiffusion
+
+# RL (rl/games)
+gymnasium
+ale-py
+
+# Plotting / misc
+plotly
+seaborn
+rich
+wandb
+
+# Not on PyPI or platform-specific -- install manually if needed:
+#   openpi / openpi_client (vla), stable_worldmodel / stable_pretraining (jepa_2),
+#   vllm / deepspeed (rl, Linux + CUDA), jax (vla), reasoning_from_scratch (_2026/rl/references)

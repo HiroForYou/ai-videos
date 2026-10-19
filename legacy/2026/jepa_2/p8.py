@@ -1,0 +1,158 @@
+"""
+Scenes for storyboard panel 8 of the JEPA 2 video.
+
+Scenes
+| Scene | Base class |
+|---|---|
+| `P8` | InteractiveScene |
+
+Local data (paths relative to the repo root; files not in this repo)
+| Variable | Path |
+|---|---|
+| `svg_dir` | legacy/2026/jepa_2/data/graphics/p8_to_manim |
+| `img_dir` | legacy/2026/jepa_2/data/graphics |
+| `hackin_dir` | legacy/2026/jepa_2/data/hackin |
+
+Render from the repo root with manimgl (legacy/requirements.txt)
+    manimgl legacy/2026/jepa_2/p8.py P8 -w
+"""
+
+from manimlib import *
+from tqdm import tqdm
+from pathlib import Path
+import matplotlib.pyplot as plt
+import json
+
+CHILL_BROWN = "#948979"
+YELLOW = "#ffd35a"
+YELLOW_FADE = "#7f6a2d"
+BLUE = "#65c8d0"
+GREEN = "#00a14b"
+CHILL_GREEN = "#6c946f"
+CHILL_BLUE = "#3d5c6f"
+FRESH_TAN = "#dfd0b9"
+CYAN = "#00FFFF"
+MAGENTA = "#FF00FF"
+
+# ulimit -n 4096
+svg_dir = Path("legacy/2026/jepa_2/data/graphics/p8_to_manim")
+img_dir = "legacy/2026/jepa_2/data/graphics"
+hackin_dir = "legacy/2026/jepa_2/data/hackin"
+
+
+class P8(InteractiveScene):
+    def construct(self):
+
+        svgs_to_skip = []
+        svg_files = list(sorted(svg_dir.glob("*.svg")))
+        all_svgs = Group()
+        for i, svg_file in enumerate(svg_files):
+            if i in svgs_to_skip:
+                continue
+            svg_image = SVGMobject(str(svg_file))
+            svg_image.scale(4.0)
+            all_svgs.add(svg_image[1:])
+
+        v_jepa_cats = ImageMobject(
+            str(img_dir + "/P19_22_3db.mp4.00_00_10_29.Still001 copy.jpg")
+        )
+        v_jepa_cats_2 = ImageMobject(
+            str(img_dir + "/P19_22_3db.mp4.00_00_13_27.Still002 copy.jpg")
+        )
+        mushroom = ImageMobject(str(img_dir + "/AdobeStock_93352397.jpeg"))
+        pusht_1 = ImageMobject(str(img_dir + "/sample_rollout/frame_0000.png"))
+        pusht_2 = ImageMobject(str(img_dir + "/sample_rollout/frame_0015.png"))
+        pusht_3 = ImageMobject(str(img_dir + "/sample_rollout/frame_0030.png"))
+        pusht_4 = ImageMobject(str(img_dir + "/sample_rollout/frame_0045.png"))
+        pusht_5 = ImageMobject(str(img_dir + "/sample_rollout/frame_0065.png"))
+        pusht_6 = ImageMobject(str(img_dir + "/sample_rollout/frame_0080.png"))
+        pusht_group = Group(pusht_1, pusht_2, pusht_3, pusht_4, pusht_5, pusht_6)
+
+        # self.wait()
+
+        # Get images positioned then work on animation.
+        all_svgs[6].set_opacity(0.4)
+
+        v_jepa_cats.scale(0.25)
+        v_jepa_cats.move_to([-5.9, 0.1, 0])
+
+        v_jepa_cats_2.scale(0.25)
+        v_jepa_cats_2.move_to([-4.1, 0.1, 0])
+
+        mushroom.scale(0.22)
+        mushroom.move_to([3.95, 0.0, 0])
+
+        pusht_group.scale(0.25)
+        pusht_1.move_to([-3.7, -3.1, 0])
+        pusht_2.move_to([-2.2, -3.1, 0])
+        pusht_3.move_to([-0.6, -3.1, 0])
+        pusht_4.move_to([0.95, -3.1, 0])
+        pusht_5.move_to([2.5, -3.1, 0])
+        pusht_6.move_to([4.05, -3.1, 0])
+
+        # self.remove(all_svgs[1][144])
+        all_svgs[1][141].set_opacity(0.4)
+        all_svgs[1][143].set_opacity(0.7)
+        all_svgs[1][145].set_opacity(0.7)
+        all_svgs[1][147].set_opacity(0.7)
+        all_svgs[1][149].set_opacity(0.5)
+        all_svgs[1][74].set_opacity(0.3)
+
+        all_svgs[1][64].set_opacity(0.4)
+        all_svgs[1][66].set_opacity(0.7)
+        all_svgs[1][68].set_opacity(0.7)
+        all_svgs[1][70].set_opacity(0.7)
+        all_svgs[1][72].set_opacity(0.5)
+        all_svgs[1][74].set_opacity(0.3)
+        # all_svgs[1][76].set_opacity(0.4)
+
+        rng = np.random.default_rng()
+        for o in all_svgs[3]:
+            o.set_opacity(rng.uniform(0.4, 0.8))
+
+        # self.add(v_jepa_cats)
+        # self.add(v_jepa_cats_2)
+        # self.add(mushroom)
+        # self.add(pusht_group)
+        # self.add(all_svgs)
+
+        self.wait()
+        self.frame.reorient(0, 0, 0, (-0.01, 1.13, 0.0), 4.85)
+        self.play(Write(all_svgs[0]), run_time=3)
+
+        self.wait()
+        self.play(Write(all_svgs[1]), run_time=5)
+
+        self.wait()
+        self.play(Write(all_svgs[2]), Write(all_svgs[3]), run_time=5)
+
+        # Alot going on here quickly, maybe just a zoom out and FadeIn?
+        # self.wait()
+        group_1 = Group(v_jepa_cats, v_jepa_cats_2, all_svgs[4])
+        group_2 = Group(all_svgs[5], mushroom)
+        group_3 = Group(pusht_group, all_svgs[6:8])
+
+        self.wait()
+        self.play(
+            LaggedStart(
+                [FadeIn(group_1), FadeIn(group_2), FadeIn(group_3)], lag_ratio=0.5
+            ),
+            self.frame.animate.reorient(0, 0, 0, (0, 0, 0), 8.00),
+            run_time=6,
+        )
+
+        # self.play(FadeIn(v_jepa_cats),
+        # 		  FadeIn(v_jepa_cats_2),
+        # 		  # FadeIn(mushroom),
+        # 		  # FadeIn(pusht_group),
+        # 		  FadeIn(all_svgs[4]),
+        # 		  self.frame.animate.reorient(0, 0, 0, (0, 0, 0), 8.00),
+        # 	      run_time=6)
+
+        # self.play(FadeIn(all_svgs[5]), FadeIn(mushroom), run_time=3)
+        # self.play(FadeIn(pusht_group), FadeIn(all_svgs[6:8]), run_time=3)
+
+        self.wait()
+
+        self.wait(20)
+        self.embed()

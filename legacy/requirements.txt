@@ -1,0 +1,7 @@
+# Legacy scenes in legacy/ use manimgl (3b1b version). Installs alongside manim (different import names).
+# Install from the repo root: pip install -r legacy/requirements.txt
+# Render: python legacy/tools/render_legacy.py legacy/<year>/<video>/<file>.py <Scene> -w
+# System dependencies: ffmpeg on PATH, LaTeX for scenes that use Tex.
+-r ../requirements.txt
+
+manimgl>=1.7.2
