@@ -31,8 +31,8 @@ class Dot3D(Sphere):
 class P24v4(InteractiveScene):
     def construct(self):
 
-        surf=2.0*np.load('legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_24_28_losses_4.npy')+0.8
-        xy=np.load('legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_24_28_losses_4xy.npy')
+        surf=2.0*np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.npy')+0.8
+        xy=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4xy.npy')
 
         # Create the surface
         axes = ThreeDAxes(
@@ -79,7 +79,7 @@ class P24v4(InteractiveScene):
             resolution=(512, 512),
         )
         
-        ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_24_28_losses_4.png')
+        ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.png')
         ts.set_shading(0.0, 0.1, 0)
         ts.set_opacity(0.7)
 

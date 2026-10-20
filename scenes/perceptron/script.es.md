@@ -7,13 +7,13 @@ Generado desde script.yaml con scripts/export_scripts.py. El tiempo de narració
 | 1 | `intro` | 26 | 10.4 | 10.4 |
 | 2 | `neuron` | 47 | 18.8 | 18.8 |
 | 3 | `dials` | 50 | 20.0 | 20.0 |
-| 4 | `landscape` | 35 | 14.0 | 14.0 |
+| 4 | `landscape` | 50 | 20.0 | 20.0 |
 | 5 | `xor` | 34 | 13.6 | 13.6 |
 | 6 | `step_surface` | 48 | 19.2 | 19.2 |
 | 7 | `scale` | 26 | 10.4 | 10.4 |
 | 8 | `summary` | 18 | 7.2 | 7.2 |
 
-Palabras: 284 · Narración: 114 s
+Palabras: 299 · Narración: 120 s
 
 ## 1. `intro`
 
@@ -46,13 +46,14 @@ Palabras: 284 · Narración: 114 s
 
 ## 4. `landscape`
 
-**Narración.** Con dos pesos, el error se convierte en una superficie sobre el plano: un cuenco suave al sumar los cuatro puntos. Aprender es bajar por la pendiente, paso a paso, hasta su punto más bajo.
+**Narración.** Girar los dos diales de pesos por todo su rango dibuja el error sobre cada punto del plano: un cuenco suave al sumar los cuatro puntos. Luego el descenso de gradiente gira los tres diales a la vez, los dos pesos y el sesgo, bajando hasta el punto más bajo.
 
 | Texto en pantalla | |
 |---|---|
 | `section` | 3 · El paisaje del error |
 | `surface` | error sobre dos pesos, los cuatro puntos |
-| `descent` | descenso de gradiente |
+| `descent` | descenso de gradiente en w0, w1 y b |
+| `sweep_grid` | recorriendo w0 y w1 en una cuadrícula |
 
 ## 5. `xor`
 
@@ -75,6 +76,7 @@ Palabras: 284 · Narración: 114 s
 | `sigmoid` | activación sigmoide |
 | `flat` | pendiente = 0 casi en todas partes |
 | `smooth` | una pendiente que seguir |
+| `training` | entrenamiento con SGD (lr = 3) |
 
 ## 7. `scale`
 

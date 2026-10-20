@@ -20,11 +20,11 @@ Public API
 Local data (paths relative to the repo root; files not in this repo)
 | Variable | Path |
 |---|---|
-| `surf` | legacy/2025/backprop_1/data/backpropagation/animation/p_24_28_losses_4.npy |
-| `xy` | legacy/2025/backprop_1/data/backpropagation/animation/p_24_28_losses_4xy.npy |
-| `grads_1` | legacy/2025/backprop_1/data/backpropagation/animation/p_33_35_grads_1_2.npy |
-| `grads_2` | legacy/2025/backprop_1/data/backpropagation/animation/p_33_35_grads_2_2.npy |
-| `xy_grads` | legacy/2025/backprop_1/data/backpropagation/animation/p_33_35_xy_2.npy |
+| `surf` | legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.npy |
+| `xy` | legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4xy.npy |
+| `grads_1` | legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_grads_1_2.npy |
+| `grads_2` | legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_grads_2_2.npy |
+| `xy_grads` | legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_xy_2.npy |
 
 Render from the repo root with manimgl (legacy/requirements.txt)
     manimgl legacy/2025/backprop_1/p33_35_sketch.py P33v1 -w
@@ -37,11 +37,11 @@ CHILL_BROWN='#948979'
 YELLOW='#ffd35a'
 BLUE='#65c8d0'
 
-surf=np.load('legacy/2025/backprop_1/data/backpropagation/animation/p_24_28_losses_4.npy')
-xy=np.load('legacy/2025/backprop_1/data/backpropagation/animation/p_24_28_losses_4xy.npy')
-grads_1=np.load('legacy/2025/backprop_1/data/backpropagation/animation/p_33_35_grads_1_2.npy') 
-grads_2=np.load('legacy/2025/backprop_1/data/backpropagation/animation/p_33_35_grads_2_2.npy') 
-xy_grads=np.load('legacy/2025/backprop_1/data/backpropagation/animation/p_33_35_xy_2.npy') 
+surf=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.npy')
+xy=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4xy.npy')
+grads_1=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_grads_1_2.npy') 
+grads_2=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_grads_2_2.npy') 
+xy_grads=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_xy_2.npy') 
 
 
 def param_surface(u, v):
@@ -344,7 +344,7 @@ class P33v1(InteractiveScene):
             resolution=(256, 256),
         )
 
-        ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/backpropagation/animation/p_24_28_losses_4.png')
+        ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.png')
         ts.set_shading(0.0, 0.1, 0)
         
 
@@ -1165,7 +1165,7 @@ class P34_2d_deprecated(InteractiveScene):
 #         z_label.next_to(axes.z_axis, OUT)
 #         z_label.rotate(90*DEGREES, [1,0,0])
         
-#         ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/backpropagation/animation/p_24_28_losses_4.png')
+#         ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.png')
 #         ts.set_shading(0.0, 0.1, 0)
 #         ts.set_opacity(0.7)
 

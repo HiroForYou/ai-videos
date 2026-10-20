@@ -39,11 +39,11 @@ YELLOW='#ffd35a'
 RED='#EC2027'
 BLUE='#65c8d0'
 
-# surf=np.load('legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_24_28_losses_4.npy')
-# xy=np.load('legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_24_28_losses_4xy.npy')
-# grads_1=np.load('legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_33_35_grads_1_2.npy') 
-# grads_2=np.load('legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_33_35_grads_2_2.npy') 
-# xy_grads=np.load('legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_33_35_xy_2.npy') 
+# surf=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.npy')
+# xy=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4xy.npy')
+# grads_1=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_grads_1_2.npy') 
+# grads_2=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_grads_2_2.npy') 
+# xy_grads=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_33_35_xy_2.npy') 
 
 surf=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.npy')
 xy=np.load('legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4xy.npy')
@@ -364,7 +364,7 @@ class P33_35(InteractiveScene):
             resolution=(256, 256),
         )
 
-        # ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/Documents/Welch Labs/ai_book/backprop/data/p_24_28_losses_4.png')
+        # ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.png')
         ts = TexturedSurface(surface, 'legacy/2025/backprop_1/data/backpropagation/hackin/p_24_28_losses_4.png')
 
         ts.set_shading(0.0, 0.1, 0)

@@ -22,6 +22,7 @@ Videos explicativos sobre modelos de IA, hechos con [Manim Community](https://ww
 | JEPA 2 | Manim | `scenes/jepa2/jepa2.py` | `JEPA2OverviewEN`, `JEPA2OverviewES` | 62 s (EN), 65 s (ES) | Predicción latente enmascarada (V-JEPA 2), planificación con CEM (V-JEPA 2-AC) |
 | VLA | Manim | `scenes/vla/vla.py` | `VLAOverviewEN`, `VLAOverviewES` | 56 s (EN), 61 s (ES) | Entradas y tokens estilo π0, action expert con flow matching, ejecución del chunk |
 | Perceptrón | Manim | `scenes/perceptron/perceptron.py` | `PerceptronOverviewEN`, `PerceptronOverviewES` | 120 s (ES) | Pesos como diales; los diales recorren w0 y w1 mientras aparece el cuenco del error; descenso de gradiente en w0, w1 y b; XOR con dos neuronas ocultas escalón; paisajes con escalón y sigmoide con trayectoria SGD; zoom out a 12 bloques transformer (redibuja los cuatro scripts de `legacy/2025/perceptron`) |
+| Retropropagación, parte 1 | Manim | `scenes/backprop_1/backprop_1.py` | `Backprop1OverviewEN`, `Backprop1OverviewES` | 165 s (ES) | Probabilidades del siguiente token en Llama 3.2 1B; pérdida -log p; superficie de pérdida sobre dos pesos de la última capa; flechas del gradiente y descenso; cortes en direcciones aleatorias; un paisaje que cambia al entrenar; valle oculto; ajuste de una recta y su superficie de pérdida (redibuja `legacy/2025/backprop_1`) |
 | Perceptrón | Remotion | `remotion/src/perceptron/Perceptron.tsx` | `PerceptronEN`, `PerceptronES` | 86 s (EN), 86 s (ES) | Neurona de Rosenblatt, frontera de decisión, regla de aprendizaje con diales, paisaje del error, límite XOR |
 
 <p align="center">
@@ -86,7 +87,8 @@ scenes/                    escenas de Manim Community, una carpeta por video
 │   ├── script.yaml        guion fuente: narración y texto en pantalla por sección (EN/ES)
 │   └── script.en.md, script.es.md   guion legible con narración y tiempos de escena
 ├── vla/                   misma estructura (vla.py, script.yaml, script.*.md)
-└── perceptron/            misma estructura (perceptron.py); redibuja las escenas de legacy/2025/perceptron
+├── perceptron/            misma estructura (perceptron.py); redibuja las escenas de legacy/2025/perceptron
+└── backprop_1/            misma estructura (backprop_1.py); redibuja las escenas de legacy/2025/backprop_1
 remotion/                  proyecto Remotion: composiciones, script.json por video (ver remotion/README.md)
 assets/theme.json          paleta compartida por Manim y Remotion
 assets/fonts/              fuentes de Manim, las descarga scripts/fetch_fonts.py (no versionado)
@@ -228,6 +230,47 @@ python legacy/tools/render_legacy.py legacy/2025/perceptron/p45_51.py P45_48v2 -
 ```
 
 `legacy/tools/render_legacy.py` pasa todos los argumentos a `manimgl`, agrega `legacy/config/custom_config.yml` y corrige dos problemas de manimgl 1.7.2 con MiKTeX en Windows (el flag `-no-pdf` y las rutas temporales cortas 8.3).
+
+### Disponibilidad de entradas
+
+La mayoría de las escenas heredadas carga SVGs exportados desde Illustrator, video de stock y corridas de entrenamiento que estaban en el Dropbox del autor original. Esos archivos nunca se publicaron, ni en este repo ni en [WelchLabs/videos](https://github.com/WelchLabs/videos). Cada escena cae en uno de cuatro grupos (análisis estático de todos los `.py` e `.ipynb` de `legacy/`):
+
+| Grupo | Significado |
+|---|---|
+| Autocontenida | Renderiza tras clonar; usa solo código o archivos versionados en `legacy/` |
+| Upstream | Necesita archivos que existen en `upstream/master` pero que `dev` ignora (`*.pth`, `*.p`, `*.json`, `data/`) |
+| Regenerable | Un notebook del mismo video produce sus entradas de `data/` |
+| Externa | Necesita archivos del autor que ningún script produce (SVGs, media de stock, corridas privadas, el módulo `helpers`) |
+
+| Video | Autocontenidas | Upstream | Regenerables (notebook que produce las entradas) | Externas |
+|---|---|---|---|---|
+| `2025/backprop_1` | `p21*.py`, `p29c`, `p48b`, `p53` | - | `p24_28`, `p33_35*`, `p39_48`, `p48c`, `p50_51`, `opening_rewrite*`, `thumbnail_hackin_1` (`generate_inputs.py`; Llama 3.2 1B desde Hugging Face) | `p6_8`, `poster_hackin_2` |
+| `2025/backprop_2` | `p_27`, `network_pranav_pr_1` | - | `p32_40`, `p40_44`, `p44_46`, `p48_49` (`European Cities 1D/2D [Part 1].ipynb`); `p12_quick_zoom`, `p51`, `llama_learning_animation_9-11` (`Llama Exporting 4.ipynb`, pesos de Llama) | `p22_24`, `p26_28`, `p50`, resto de `llama_learning_animation_*` (corridas `may_31_1`, `jun_*`) |
+| `2025/backprop_3` | `equations` | `p7`, `p12`, `p23_28`, `p63`, `refactor_sketch_*` (`models/*.pth`, `models/*.p`) | `p64` (`Simple Loss While Training Plot.ipynb`) | `p3_6`, `p17_and_21`, `p18_21`, `p35_41`, `p46_53`, `p61_62`, `plane_folding_sketch_*` |
+| `2025/deepseek` | - | - | - | Todas las escenas (SVGs, exportaciones de atención de `linux_workdir`) |
+| `2025/generalization` | `p18`, `p18_sw`, `p58` | - | Ajustes polinomiales de `p65_68` (`Final Video Polynomial Examples.ipynb`; sus SVGs siguen siendo externos) | `p8_15`, `p20`, `p33`, `p46_56` |
+| `2025/grokking` | - | - | `p59_65`, `book_surfaces_1` (`notebooks/training_*.ipynb` crea una corrida nueva `grok_<timestamp>`; apuntar `data_dir` a ella) | SVGs de `p25_26`, `p27_31`, `p33_38`, `p41_58` |
+| `2025/mech_interp_partial` | - | - | - | `p25_36_book` (módulo `helpers`) |
+| `2025/perceptron` | `p45_51`, `p45_51_book_graphics`, `p66_67` | - | - | `p69_72` (módulo `helpers`) |
+| `2025/sora` | `p20_21`, `p24` | - | `p40_51`, `p53_59`, `p66_68`, parte de `p78_85` (`Toy Sampling Animations *`, `Conditioning and Guidance *`; guardan en `data/sora/` y las escenas leen `data/hackin/`) | `p39` |
+| `2025/subliminal_learning` | - | - | - | `p27_48`, `p27_40_pranav` |
+| `2026/jepa` | `p14_18` | - | - | Resto de escenas (SVGs, pares de imágenes, clips) |
+| `2026/jepa_2` | `p61_vectors`, `p67_vectors` | - | Cuadros reales de Push-T y datos de CEM de `P67_75`, `P84_85` (`p67`, `p69_73`, `p75bb`; `stable-worldmodel`, checkpoint `quentinll/lewm-pusht`, dataset de 13 GB) | SVGs, video de stock, cuadros decodificados por el world model (pesos del decoder del autor) |
+| `2026/resnets` | `P30` | `p32` (`data/loss_2d_1.npy`) | `p25_35`, `p33_network`, `p34_*`, `p41_45_networks`, `p47_48_*`, `p54_60`, `p63_69`, `p70_73`, `P35_gradient_field` (`P25_37c/d`, `general_activation_saving_1`, `P33_35a`, `p63_cache_activations`; ImageNet, descarga manual) | `p13_30`, `alexnet_assets_gen` |
+| `2026/rl` | `games/pong/*`, `games/breakout/*` (entrenan con `gymnasium` y `ale-py`) | - | `rl_hacking_1` (`slides_rl_1*.ipynb`) | `book_figure_28` |
+| `2026/the_bitter_lesson` | `p10_1`, `integration_problems`, `alpha_go_cnn_hacking`, `go_games_grid_3d` | `p4`, `p4_1` (`phone_dag_v2.json`, `phone_dag_claude_v2.json`) | - | `p5*`, `p29_41`, `gameplay_animations`, `go_board_hacking_1` |
+| `2026/vla` | `p35` | - | `p50` (`p50_cat_diffusion.ipynb`, diffusers) | `p1_6`, `p31_61_1`, `p51`, `p52`, `poster_1` |
+
+Las variantes de libro, merch y miniatura (`*_book`, `*_merch`, `thumbnail_*`) pertenecen al mismo grupo que su escena base.
+
+Los archivos de upstream conservan la estructura original (`_2025/...`). Se extraen en `legacy/<año>/`:
+
+```bash
+git fetch upstream
+git archive upstream/master _2025/backprop_3/models | tar -x --strip-components=1 -C legacy/2025
+git archive upstream/master _2026/the_bitter_lesson/phone_dag_v2.json _2026/the_bitter_lesson/phone_dag_claude_v2.json | tar -x --strip-components=1 -C legacy/2026
+git archive upstream/master _2026/resnets/data/loss_2d_1.npy | tar -x --strip-components=1 -C legacy/2026
+```
 
 ## Archivos no versionados
 

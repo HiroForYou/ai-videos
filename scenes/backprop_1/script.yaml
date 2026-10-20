@@ -1,0 +1,194 @@
+# Script (guion) for scenes/backprop_1/backprop_1.py (Backpropagation, part 1)
+# Each section maps to board.start(self, id) in the scene.
+# narration: voice-over text per language. text: strings shown on screen.
+# Readable versions: script.en.md, script.es.md (python scripts/export_scripts.py)
+# Visual references: legacy/2025/backprop_1 (p21, p24_28, p33_35, p39_48, p47_wormhole, p48b, p50_51, p53), redrawn here.
+# Numbers from Llama 3.2 1B (unsloth/Llama-3.2-1B, CPU float32): p(' Paris') = 0.3915, 1,235,814,400 parameters.
+title:
+  en: Backpropagation, part 1
+  es: Retropropagación, parte 1
+languages:
+- en
+- es
+sections:
+- id: intro
+  narration:
+    en: Training a neural network means nudging over a billion numbers until its predictions improve. Backpropagation
+      tells us which way to nudge each one. In this first part we look at the loss landscape of a real language
+      model.
+    es: Entrenar una red neuronal es ajustar más de mil millones de números hasta que sus predicciones mejoren.
+      La retropropagación indica hacia dónde mover cada uno. En esta primera parte vemos el paisaje de la pérdida de un
+      modelo de lenguaje real.
+  text:
+    title:
+      en: Backpropagation
+      es: Retropropagación
+    part:
+      en: Part 1
+      es: Parte 1
+    subtitle:
+      en: Finding the way downhill
+      es: Encontrar el camino cuesta abajo
+    credit:
+      en: Llama 3.2 1B · 1,235,814,400 parameters
+      es: Llama 3.2 1B · 1.235.814.400 parámetros
+- id: next_token
+  narration:
+    en: 'We give Llama 3.2 the text: the capital of France is. The model returns a probability for each of its 128,256
+      tokens. Paris gets 39 percent; a, the, one and also follow far behind.'
+    es: 'Le damos a Llama 3.2 el texto: the capital of France is. El modelo devuelve una probabilidad para cada uno
+      de sus 128.256 tokens. Paris recibe un 39 por ciento; a, the, one y also quedan muy atrás.'
+  text:
+    section:
+      en: 1 · Predicting the next token
+      es: 1 · Predecir el siguiente token
+    prompt:
+      en: The capital of France is
+      es: The capital of France is
+    vocab:
+      en: probability over 128,256 tokens
+      es: probabilidad sobre 128.256 tokens
+- id: loss
+  narration:
+    en: The prediction is scored with the loss, minus the log of the probability of the right answer. At 39 percent
+      the loss is 0.94. As the probability of Paris approaches one, the loss falls to zero; as it approaches zero,
+      the loss shoots up.
+    es: La predicción se evalúa con la pérdida, menos el logaritmo de la probabilidad de la respuesta correcta.
+      Con 39 por ciento la pérdida es 0,94. Si la probabilidad de Paris se acerca a uno, la pérdida baja a cero;
+      si se acerca a cero, la pérdida se dispara.
+  text:
+    section:
+      en: 2 · Measuring the error
+      es: 2 · Medir el error
+    probability:
+      en: probability of Paris
+      es: probabilidad de Paris
+    loss_label:
+      en: loss
+      es: pérdida
+- id: two_weights
+  narration:
+    en: Now pick two of the 1.2 billion parameters, both in the last layer, and call them theta one and theta two.
+      Sweeping both across a range and recomputing the loss at every point draws a surface, the loss landscape.
+    es: Ahora elegimos dos de los 1.200 millones de parámetros, ambos en la última capa, y los llamamos theta
+      uno y theta dos. Recorrer ambos en un rango y recalcular la pérdida en cada punto dibuja una superficie,
+      el paisaje de la pérdida.
+  text:
+    section:
+      en: 3 · Two weights, one surface
+      es: 3 · Dos pesos, una superficie
+    layer:
+      en: two weights of the last layer
+      es: dos pesos de la última capa
+    surface:
+      en: loss over two weights
+      es: pérdida sobre dos pesos
+- id: gradient
+  narration:
+    en: At any point the gradient points where the loss climbs fastest. Stepping against it, again and again, walks
+      the two weights downhill to the bottom of the bowl, and the loss drops from 1.7 to 0.3.
+    es: En cada punto, el gradiente apunta hacia donde la pérdida sube más rápido. Dar pasos en contra, una y
+      otra vez, lleva los dos pesos cuesta abajo hasta el fondo del cuenco, y la pérdida baja de 1,7 a 0,3.
+  text:
+    section:
+      en: 4 · Following the gradient
+      es: 4 · Seguir el gradiente
+    overhead:
+      en: seen from above
+      es: vista desde arriba
+    descent:
+      en: gradient descent
+      es: descenso de gradiente
+- id: slices
+  narration:
+    en: A real model has far more than two directions. A common view picks one random direction through all the
+      parameters and plots the loss along it. With random weights the curve is high and jagged; after training
+      it has a deep, smooth valley at the trained weights.
+    es: Un modelo real tiene muchas más de dos direcciones. Una vista habitual elige una dirección aleatoria a
+      través de todos los parámetros y grafica la pérdida a lo largo de ella. Con pesos aleatorios la curva es
+      alta y dentada; tras el entrenamiento tiene un valle profundo y suave en los pesos entrenados.
+  text:
+    section:
+      en: 5 · Slices through a billion dimensions
+      es: 5 · Cortes en mil millones de dimensiones
+    random:
+      en: random weights
+      es: pesos aleatorios
+    trained:
+      en: trained weights
+      es: pesos entrenados
+- id: landscape
+  narration:
+    en: Two random directions through the first eight layers give a two dimensional view. While the model trains
+      on this sentence, the landscape itself changes. A valley opens under the current weights and the loss falls
+      from 14 to about 1.
+    es: Dos direcciones aleatorias a través de las primeras ocho capas dan una vista en dos dimensiones. Mientras
+      el modelo entrena con esta frase, el propio paisaje cambia. Se abre un valle bajo los pesos actuales y la
+      pérdida baja de 14 a cerca de 1.
+  text:
+    section:
+      en: 6 · A landscape that moves
+      es: 6 · Un paisaje que se mueve
+    step:
+      en: training step
+      es: paso de entrenamiento
+    current:
+      en: current weights
+      es: pesos actuales
+- id: hidden_valley
+  narration:
+    en: Gradient descent only sees the local slope. On this surface the deepest point is a narrow valley off to
+      the side. From far away the slope points at the center of the bowl; only near the center does the valley
+      pull the path in.
+    es: El descenso de gradiente solo ve la pendiente local. En esta superficie el punto más profundo es un valle
+      estrecho a un costado. Desde lejos, la pendiente apunta al centro del cuenco; solo cerca del centro el
+      valle atrae la trayectoria.
+  text:
+    section:
+      en: 7 · Hidden valleys
+      es: 7 · Valles ocultos
+    valley:
+      en: hidden valley
+      es: valle oculto
+- id: fit
+  narration:
+    en: The same picture holds for the smallest model, a line with a slope and an intercept fit to twenty points.
+      Every point of the loss surface is one line, and gradient descent moves the line until it fits the data.
+    es: La misma imagen vale para el modelo más pequeño, una recta con pendiente e intercepto ajustada a veinte
+      puntos. Cada punto de la superficie de pérdida es una recta, y el descenso de gradiente la mueve hasta que
+      se ajusta a los datos.
+  text:
+    section:
+      en: 8 · The same idea, small
+      es: 8 · La misma idea, en pequeño
+    data_fit:
+      en: data fitting
+      es: ajuste de datos
+    loss_surface:
+      en: loss surface
+      es: superficie de pérdida
+    slope:
+      en: slope
+      es: pendiente
+    intercept:
+      en: intercept
+      es: intercepto
+- id: summary
+  narration:
+    en: Every step needs the slope of the loss for every parameter, 1,235,814,400 of them in this model. Backpropagation
+      computes all of them in one backward pass through the network; part two shows how.
+    es: Cada paso necesita la pendiente de la pérdida para cada parámetro, 1.235.814.400 en este modelo. La retropropagación
+      las calcula todas en una sola pasada hacia atrás por la red; la parte dos muestra cómo.
+  text:
+    summary:
+      en:
+      - One loss, 1,235,814,400 parameters
+      - One slope per parameter
+      - 'Backpropagation: every slope in one backward pass'
+      es:
+      - Una pérdida, 1.235.814.400 parámetros
+      - Una pendiente por parámetro
+      - 'Retropropagación: todas las pendientes en una pasada hacia atrás'
+    next_part:
+      en: 'Part 2: how backpropagation computes the slopes'
+      es: 'Parte 2: cómo la retropropagación calcula las pendientes'

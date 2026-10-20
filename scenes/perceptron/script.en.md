@@ -7,13 +7,13 @@ Generated from script.yaml by scripts/export_scripts.py. Narration time assumes 
 | 1 | `intro` | 24 | 9.6 | 9.6 |
 | 2 | `neuron` | 44 | 17.6 | 17.6 |
 | 3 | `dials` | 48 | 19.2 | 19.2 |
-| 4 | `landscape` | 32 | 12.8 | 12.8 |
+| 4 | `landscape` | 46 | 18.4 | 12.8 |
 | 5 | `xor` | 35 | 14.0 | 14.0 |
 | 6 | `step_surface` | 41 | 16.4 | 16.4 |
 | 7 | `scale` | 25 | 10.0 | 10.0 |
 | 8 | `summary` | 18 | 7.2 | 7.2 |
 
-Words: 267 · Narration: 107 s
+Words: 281 · Narration: 112 s
 
 ## 1. `intro`
 
@@ -46,13 +46,14 @@ Words: 267 · Narration: 107 s
 
 ## 4. `landscape`
 
-**Narration.** With two weights the error becomes a surface over the plane, a smooth bowl when we add up all four points. Learning means walking downhill, step by step, to its lowest point.
+**Narration.** Turning both weight dials across their range traces the error over every point of the plane: a smooth bowl when we add up all four points. Gradient descent then turns all three dials at once, both weights and the bias, walking downhill to the lowest point.
 
 | On-screen text | |
 |---|---|
 | `section` | 3 · The error landscape |
 | `surface` | error over two weights, all four points |
-| `descent` | gradient descent |
+| `descent` | gradient descent on w0, w1 and b |
+| `sweep_grid` | sweeping w0 and w1 over a grid |
 
 ## 5. `xor`
 
@@ -75,6 +76,7 @@ Words: 267 · Narration: 107 s
 | `sigmoid` | sigmoid activation |
 | `flat` | slope = 0 almost everywhere |
 | `smooth` | a slope to follow |
+| `training` | training with SGD (lr = 3) |
 
 ## 7. `scale`
 

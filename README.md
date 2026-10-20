@@ -22,6 +22,7 @@ Explainer videos about AI models, built with [Manim Community](https://www.manim
 | JEPA 2 | Manim | `scenes/jepa2/jepa2.py` | `JEPA2OverviewEN`, `JEPA2OverviewES` | 62 s (EN), 65 s (ES) | V-JEPA 2 masked latent prediction, V-JEPA 2-AC planning with CEM |
 | VLA | Manim | `scenes/vla/vla.py` | `VLAOverviewEN`, `VLAOverviewES` | 56 s (EN), 61 s (ES) | π0-style inputs and tokens, flow-matching action expert, chunk execution |
 | Perceptron | Manim | `scenes/perceptron/perceptron.py` | `PerceptronOverviewEN`, `PerceptronOverviewES` | 120 s (ES) | Weights as dials; dials sweep w0 and w1 while the error bowl appears; gradient descent on w0, w1 and b; XOR with two hidden step neurons; step vs sigmoid landscapes with an SGD path; zoom out to 12 transformer blocks (redraws all four `legacy/2025/perceptron` scripts) |
+| Backpropagation, part 1 | Manim | `scenes/backprop_1/backprop_1.py` | `Backprop1OverviewEN`, `Backprop1OverviewES` | 165 s (ES) | Next-token probabilities of Llama 3.2 1B; loss -log p; loss surface over two last-layer weights; gradient arrows and descent; random-direction slices; a landscape that changes while training; hidden valley; line fit and its loss surface (redraws `legacy/2025/backprop_1`) |
 | Perceptron | Remotion | `remotion/src/perceptron/Perceptron.tsx` | `PerceptronEN`, `PerceptronES` | 86 s (EN), 86 s (ES) | Rosenblatt's neuron, decision boundary, learning rule with dials, error landscape, XOR limit |
 
 <p align="center">
@@ -86,7 +87,8 @@ scenes/                    Manim Community scenes, one folder per video
 │   ├── script.yaml        script source: narration and on-screen text per section (EN/ES)
 │   └── script.en.md, script.es.md   readable script with narration and scene timing
 ├── vla/                   same layout (vla.py, script.yaml, script.*.md)
-└── perceptron/            same layout (perceptron.py); redraws the legacy/2025/perceptron scenes
+├── perceptron/            same layout (perceptron.py); redraws the legacy/2025/perceptron scenes
+└── backprop_1/            same layout (backprop_1.py); redraws the legacy/2025/backprop_1 scenes
 remotion/                  Remotion project: compositions, script.json per video (see remotion/README.md)
 assets/theme.json          shared palette for Manim and Remotion
 assets/fonts/              Manim fonts, downloaded by scripts/fetch_fonts.py (not versioned)
@@ -228,6 +230,47 @@ python legacy/tools/render_legacy.py legacy/2025/perceptron/p45_51.py P45_48v2 -
 ```
 
 `legacy/tools/render_legacy.py` forwards every argument to `manimgl`, adds `legacy/config/custom_config.yml` and fixes two MiKTeX issues of manimgl 1.7.2 on Windows (the `-no-pdf` flag and 8.3 short temp paths).
+
+### Input availability
+
+Most legacy scenes load SVGs exported from Illustrator, stock footage and training runs that lived in the original author's Dropbox. Those files were never published, neither in this repo nor in [WelchLabs/videos](https://github.com/WelchLabs/videos). Each scene falls into one of four groups (static audit of every `.py` and `.ipynb` under `legacy/`):
+
+| Group | Meaning |
+|---|---|
+| Self-contained | Renders after a clone; uses only code or files tracked in `legacy/` |
+| Upstream | Needs files that exist in `upstream/master` but are ignored in `dev` (`*.pth`, `*.p`, `*.json`, `data/`) |
+| Regenerable | Its `data/` inputs are produced by a notebook of the same video |
+| External | Needs author files that no script produces (SVGs, stock media, private runs, the `helpers` module) |
+
+| Video | Self-contained | Upstream | Regenerable (notebook that produces the inputs) | External |
+|---|---|---|---|---|
+| `2025/backprop_1` | `p21*.py`, `p29c`, `p48b`, `p53` | - | `p24_28`, `p33_35*`, `p39_48`, `p48c`, `p50_51`, `opening_rewrite*`, `thumbnail_hackin_1` (`generate_inputs.py`; Llama 3.2 1B from Hugging Face) | `p6_8`, `poster_hackin_2` |
+| `2025/backprop_2` | `p_27`, `network_pranav_pr_1` | - | `p32_40`, `p40_44`, `p44_46`, `p48_49` (`European Cities 1D/2D [Part 1].ipynb`); `p12_quick_zoom`, `p51`, `llama_learning_animation_9-11` (`Llama Exporting 4.ipynb`, Llama weights) | `p22_24`, `p26_28`, `p50`, other `llama_learning_animation_*` (runs `may_31_1`, `jun_*`) |
+| `2025/backprop_3` | `equations` | `p7`, `p12`, `p23_28`, `p63`, `refactor_sketch_*` (`models/*.pth`, `models/*.p`) | `p64` (`Simple Loss While Training Plot.ipynb`) | `p3_6`, `p17_and_21`, `p18_21`, `p35_41`, `p46_53`, `p61_62`, `plane_folding_sketch_*` |
+| `2025/deepseek` | - | - | - | All scenes (SVGs, attention exports from `linux_workdir`) |
+| `2025/generalization` | `p18`, `p18_sw`, `p58` | - | Polynomial fits of `p65_68` (`Final Video Polynomial Examples.ipynb`; its SVGs stay external) | `p8_15`, `p20`, `p33`, `p46_56` |
+| `2025/grokking` | - | - | `p59_65`, `book_surfaces_1` (`notebooks/training_*.ipynb` create a new run `grok_<timestamp>`; point `data_dir` to it) | SVGs of `p25_26`, `p27_31`, `p33_38`, `p41_58` |
+| `2025/mech_interp_partial` | - | - | - | `p25_36_book` (`helpers` module) |
+| `2025/perceptron` | `p45_51`, `p45_51_book_graphics`, `p66_67` | - | - | `p69_72` (`helpers` module) |
+| `2025/sora` | `p20_21`, `p24` | - | `p40_51`, `p53_59`, `p66_68`, part of `p78_85` (`Toy Sampling Animations *`, `Conditioning and Guidance *`; they save to `data/sora/`, the scenes read `data/hackin/`) | `p39` |
+| `2025/subliminal_learning` | - | - | - | `p27_48`, `p27_40_pranav` |
+| `2026/jepa` | `p14_18` | - | - | All other scenes (SVGs, image pairs, clips) |
+| `2026/jepa_2` | `p61_vectors`, `p67_vectors` | - | Real Push-T frames and CEM data of `P67_75`, `P84_85` (`p67`, `p69_73`, `p75bb`; `stable-worldmodel`, checkpoint `quentinll/lewm-pusht`, 13 GB dataset) | SVGs, stock video, frames decoded by the world model (author's decoder weights) |
+| `2026/resnets` | `P30` | `p32` (`data/loss_2d_1.npy`) | `p25_35`, `p33_network`, `p34_*`, `p41_45_networks`, `p47_48_*`, `p54_60`, `p63_69`, `p70_73`, `P35_gradient_field` (`P25_37c/d`, `general_activation_saving_1`, `P33_35a`, `p63_cache_activations`; ImageNet, manual download) | `p13_30`, `alexnet_assets_gen` |
+| `2026/rl` | `games/pong/*`, `games/breakout/*` (train with `gymnasium` and `ale-py`) | - | `rl_hacking_1` (`slides_rl_1*.ipynb`) | `book_figure_28` |
+| `2026/the_bitter_lesson` | `p10_1`, `integration_problems`, `alpha_go_cnn_hacking`, `go_games_grid_3d` | `p4`, `p4_1` (`phone_dag_v2.json`, `phone_dag_claude_v2.json`) | - | `p5*`, `p29_41`, `gameplay_animations`, `go_board_hacking_1` |
+| `2026/vla` | `p35` | - | `p50` (`p50_cat_diffusion.ipynb`, diffusers) | `p1_6`, `p31_61_1`, `p51`, `p52`, `poster_1` |
+
+Book, merch and thumbnail variants (`*_book`, `*_merch`, `thumbnail_*`) share the group of their base scene.
+
+Upstream files keep the original layout (`_2025/...`). Extract them into `legacy/<year>/`:
+
+```bash
+git fetch upstream
+git archive upstream/master _2025/backprop_3/models | tar -x --strip-components=1 -C legacy/2025
+git archive upstream/master _2026/the_bitter_lesson/phone_dag_v2.json _2026/the_bitter_lesson/phone_dag_claude_v2.json | tar -x --strip-components=1 -C legacy/2026
+git archive upstream/master _2026/resnets/data/loss_2d_1.npy | tar -x --strip-components=1 -C legacy/2026
+```
 
 ## Untracked files
 
